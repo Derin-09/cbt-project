@@ -38,7 +38,7 @@ const FirstIntro = () => {
   }, [])
  
   return (
-    <main className='h-full w-screen  text-black select-none'>
+    <main className='h-full w-sreen  text-black select-none'>
       <section className='pt-5 '>
         <section className='grid grid-cols-3 gap-8 p-8'>
           <section className='ml-0 col-span-2'>
@@ -46,7 +46,7 @@ const FirstIntro = () => {
             <div className='grid grid-cols-3 gap-4 mb-2'>
 
               { result?.map((item, idx) => (
-              <Link key={idx} href={`/dashboard/${idx}`}>
+              <Link key={idx} href={`/dashboard/examination/${idx}`}>
               <div className='p-5 h-40 rounded-lg border-1 border-gray-500'>
                 <div className='flex gap-2 pb-5 items-center'>
                 <Image src={Picture} width={35} height={35} alt="CSC 419" />
@@ -59,7 +59,7 @@ const FirstIntro = () => {
           ))}
             </div>
           </section>
-          <section style={{ boxShadow: '0 0 12px rgba(0, 0, 0, 0.2)' }} className='col-span-1 ml-4 mt-15 p-5 border-gray-500 border-1 rounded-xl  '>
+          <section style={{ boxShadow: '0 0 12px rgba(0, 0, 0, 0.2)' }} className='col-span-1 ml4 mt-15 p-5 border-gray-500 border-1 rounded-xl  '>
             <p className='text-xl font-bold'>Examination Rules</p>
             <ol className='list-decimal text-md p-5 text-gray-800 font-medium'>
             <li className='mb-3'>The new CBT is split into two parts: Part A covers numeracy and Part B covers clinical questions for nursing or midwifery.</li>

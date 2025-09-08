@@ -1,5 +1,3 @@
-
-
 'use client'
 import React from 'react'
 import Image from 'next/image'
@@ -13,9 +11,9 @@ import { doc, getDoc } from 'firebase/firestore'
 import { fetchData } from '@/lib/fetchData'
 
 type Question = {
-  text: string
-  options: string[]
-  answer: string
+    text: string
+    options: string[]
+    answer: string
 }
 
 // type Exam = {
@@ -26,64 +24,124 @@ type Question = {
 //   questions: Question[]
 // }
 
-const House = ({params}: {params: {examination: string}}) => {
-  const[result, setResult] = useState<Question[]>([])
+const House = ({ params }: { params: { examination: string } }) => {
+    const [result, setResult] = useState<Question[]>([])
+    const [currentIndex, setCurrentIndex] = useState(0)
+
     const range = Array.from({ length: 30 }, (_, i) => i + 1);
     const [name, setName] = useState<string>("")
- const [matric, setMatric] = useState<string>("")
+    const [matric, setMatric] = useState<string>("")
 
- useEffect(() => {
-    const data = async () => {
-      const examFetch = await fetchData()
-      const idx = Number(params.examination)
-      if (!examFetch || !examFetch[idx]) return
-      setResult(examFetch[idx].questions)
-    }
-    data()
-  }, [params.examination])
+    useEffect(() => {
+        console.log("params.examination 👉", params.examination)
+        const data = async () => {
+            const examFetch = await fetchData()
+            const idx = Number(params.examination)
+            if (!examFetch || !examFetch[idx]) return
+            setResult(examFetch[idx].questions)
+        }
+        data()
+    }, [params.examination])
+    console.log(params.examination)
 
+    const router = useRouter();
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                try {
+                    const userRef = doc(db, 'users', user.uid)
+                    const userSnap = await getDoc(userRef)
 
-     const router = useRouter();
-     useEffect(() => {
-   const unsubscribe = onAuthStateChanged(auth, async (user) => {
-     if (user) {
-       try {
-         const userRef = doc(db, 'users', user.uid)
-         const userSnap = await getDoc(userRef)
- 
-         if (userSnap.exists()) {
-           const userData = userSnap.data()
-           setName(userData.name || 'Guest')
-           setMatric(userData.matric || 'Guest')
-         } else {
-           setName('Guest')
-         }
-       } catch (err) {
-         console.error('Error fetching user data:', err)
-         setName('Guest')
-       }
-     } else {
-       router.push('/components/Login')
-     }
-   })
- 
-   return () => unsubscribe()
- }, [])
+                    if (userSnap.exists()) {
+                        const userData = userSnap.data()
+                        setName(userData.name || 'Guest')
+                        setMatric(userData.matric || 'Guest')
+                    } else {
+                        setName('Guest')
+                    }
+                } catch (err) {
+                    console.error('Error fetching user data:', err)
+                    setName('Guest')
+                }
+            } else {
+                router.push('/components/Login')
+            }
+        })
+
+        return () => unsubscribe()
+    }, [])
 
     return (
         <main className='h-scree w-screen   text-black select-none'>
             <section className=' '>
                 <div className='flex gap-10 justify-between h-[80px] items-center flex-3 text-center absolute z-50 top-0 right-10'>
-                        <div>
-                            <div className='text-xl'>You have: <span className='font-bold'>00:05:34 (mins) left</span></div>
-                        </div>
-                        <Link href={'/score'}>
-                        <div className='bg-[#2F4156] text-white rounded-full p-2 px-4 hover:cursor-pointer'> Submit your work</div>
-                        </Link>
+                    <div>
+                        <div className='text-xl'>You have: <span className='font-bold'>00:05:34 (mins) left</span></div>
                     </div>
+                    <Link href={'/score'}>
+                        <div className='bg-[#2F4156] text-white rounded-full p-2 px-4 hover:cursor-pointer'> Submit your work</div>
+                    </Link>
+                </div>
                 {/*<hr className='bg-gray-300 text-gray-500 w-screen'/>*/}
                 <section className='grid grid-cols-3 gap-8 p-8'>
-                { result.map((item, index) => (  
+                    {result.length > 0 && (
+                        <section className="ml-0 col-span-2 max-w-[900px]">
+                            <div className="">
+                                {/* Numbers */}
+                                <section className="w-full px-5 grid grid-cols-15 gap-2">
+                                    {range.map((num, i) => (
+                                        <div
+                                            key={num}
+                                            className={`rounded-full p-3 font-bold text-center cursor-pointer mt-5
+              ${i === currentIndex ? "bg-[#2F4156] text-white" : "bg-gray-100"}`}
+                                            onClick={() => setCurrentIndex(i)}
+                                        >
+                                            {num}
+                                        </div>
+                                    ))}
+                                </section>
+
+                                {/* Question */}
+                                <section className="px-5 pt-15">
+                                    <div className="font-bold text-xl">
+                                        {result[currentIndex].text}
+                                    </div>
+
+                                    <div className="grid grid-cols-2 justify-between pt-5 w-full">
+                                        {result[currentIndex].options.map((opt, idx) => (
+                                            <div
+                                                key={idx}
+                                                style={{ boxShadow: "0 0 12px rgba(0, 0, 0, 0.1)" }}
+                                                className="mt-5 rounded-lg p-3"
+                                            >
+                                                {idx + 1}. {opt}
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {/* Navigation */}
+                                    <section className="flex justify-between pt-15">
+                                        <div
+                                            className="rounded-3xl bg-[#2F4156] py-3 px-6 text-white"
+                                            onClick={() => setCurrentIndex(Math.max(0, currentIndex - 1))}
+                                        >
+                                            Previous
+                                        </div>
+                                        <div
+                                            className="rounded-3xl bg-[#2F4156] py-3 px-6 text-white"
+                                            onClick={() =>
+                                                setCurrentIndex(Math.min(result.length - 1, currentIndex + 1))
+                                            }
+                                        >
+                                            Next
+                                        </div>
+                                    </section>
+                                </section>
+                            </div>
+                        </section>
+                    )}
+
+                    {/* { result.map((item, index) => (  
                     <section key={index} className='ml-0 col-span-2 max-w-[900px]'>
                         <div className=''>
                             <section className='w-full px-5 grid grid-cols-15 gap-2'>
@@ -100,13 +158,6 @@ const House = ({params}: {params: {examination: string}}) => {
                                     { item.options.map((items, idx) => (
                                         <div style={{ boxShadow: '0 0 12px rgba(0, 0, 0, 0.1)' }} className='mt-5  rounded-lg p-3 '>{idx}. {items}</div>
                                         ))}
-                                    {/* <div>
-                                        <div style={{ boxShadow: '0 0 12px rgba(0, 0, 0, 0.1)' }} className='mt-5  rounded-lg p-3'>3. Selection Sort</div>
-                                    </div>
-                                    <div>
-                                        <div style={{ boxShadow: '0 0 12px rgba(0, 0, 0, 0.1)' }} className='mt-5  rounded-lg p-3'>2. Selection Sort</div>
-                                        <div style={{ boxShadow: '0 0 12px rgba(0, 0, 0, 0.1)' }} className=' mt-5 rounded-lg p-3'>4. None of the above</div>
-                                    </div> */}
                                 </div>
                                 <section className='flex justify-between pt-15'>
                                     <div className='rounded-3xl bg-[#2F4156] py-3 px-6 text-white'>Previous</div>
@@ -115,7 +166,7 @@ const House = ({params}: {params: {examination: string}}) => {
                             </section>
                         </div>
                     </section>
-                ))}
+                ))} */}
                     <section className='col-span-1 ml-4 p-5 rounded-xl'>
                         <section style={{ boxShadow: '0 0 12px rgba(0, 0, 0, 0.2)' }} className='mb-10 p-8 rounded-md max-w-[600px]' >
                             <div className='flex text-md mb-6 justify-between'>
