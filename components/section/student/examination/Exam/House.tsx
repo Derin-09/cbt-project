@@ -23,8 +23,12 @@ type Question = {
 //   level: string
 //   questions: Question[]
 // }
+ type Props = {
+    params: Promise<{ examination: string}>
+}
 
-const House = ({ params }: { params: { examination: string } }) => {
+
+const House = ({ params }: Props) => {
     const [result, setResult] = useState<Question[]>([])
     const [currentIndex, setCurrentIndex] = useState(0)
 
@@ -33,7 +37,7 @@ const House = ({ params }: { params: { examination: string } }) => {
     const [matric, setMatric] = useState<string>("")
 
     useEffect(() => {
-        console.log("params.examination 👉", params.examination)
+        //console.log("params.examination 👉", params.examination)
         const data = async () => {
             const examFetch = await fetchData()
             const idx = Number(params.examination)
