@@ -61,6 +61,7 @@ type SignupState = {
 
   passwordConfirm: string
   setPasswordConfirm: (v: string) => void
+
 }
 
 export const useSignupStore = create<SignupState>((set) => ({
@@ -87,4 +88,15 @@ export const useSignupStore = create<SignupState>((set) => ({
 
   passwordConfirm: "",
   setPasswordConfirm: (v) => set({ passwordConfirm: v }),
+
+}))
+
+export type ExamType = {
+  score: number
+  setScore: (v: number) => void
+}
+
+export const useExam = create<ExamType>((set) => ({
+  score: 0,
+  setScore: (v) => set({score: v})
 }))

@@ -1,13 +1,16 @@
+'use client'
+import { useExam } from '@/state/store'
 import Link from 'next/link'
 import React from 'react'
 
 const Score = () => {
+  const {score} = useExam()
   return (
     <main className='flex justify-center items-center h-screen text-center'>
       <section>
         <p className='text-3xl font-bold pb-10'> Well-done!</p>
         <p className='text-gray-400 text-xl '>Your exam has been submitted successfully! <br />You scored</p>
-        <div className='text-5xl text-[#2F4156] font-bold pb-10'>37/50</div>
+        <div className='text-5xl text-[#2F4156] font-bold pb-10'>{score}/30</div>
         <Link href={''}>
           <button className='bg-[#2F4156] text-white px-20 py-2 rounded mb-3 cursor-pointer'>Email my results to me</button>
         </Link><br />
