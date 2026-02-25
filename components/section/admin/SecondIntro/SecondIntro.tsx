@@ -3,13 +3,13 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import Picture from '@/public/image/Frame 101.png'
 import Link from 'next/link'
-import Navbar from '../../../ui/Navbar'
+// import Navbar from '../../../ui/Navbar'
 import { redirect, useRouter } from 'next/navigation'
 import { auth, db } from '@/app/firebase'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useEffect } from 'react'
 import { doc, getDoc } from 'firebase/firestore'
-import { it } from 'node:test'
+// import { it } from 'node:test'
 
 type DetailsType = {
     title: string
@@ -74,7 +74,7 @@ const SecondIntro = () => {
         })
 
         return () => unsubscribe()
-    }, [])
+    }, [router])
     return (
         <main className='h-full w-screen  text-black select-none'>
             <section className=''>

@@ -13,7 +13,7 @@ const Signup = () => {
     const [password, setPassword] = useState('');
     const [position, setPosition] = useState('');
     const [name, setName] = useState('');
-    const [passwordConfirm, setPasswordConfirm] = useState('');
+    // const [passwordConfirm, setPasswordConfirm] = useState('');
     const router = useRouter();
 
     const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,7 +23,7 @@ const Signup = () => {
         const password = form.elements.namedItem('Password') as HTMLInputElement;
         const position = form.elements.namedItem('Position') as HTMLInputElement;
         const name = form.elements.namedItem('Name') as HTMLInputElement;
-        const passwordConfirm = form.elements.namedItem('PasswordConfirm') as HTMLInputElement;
+        // const passwordConfirm = form.elements.namedItem('PasswordConfirm') as HTMLInputElement;
 
         /*if(password !== passwordConfirm){
             alert("Passwords don't match")

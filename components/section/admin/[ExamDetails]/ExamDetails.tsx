@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import Navbar from '../../../ui/Navbar'
+// import Navbar from '../../../ui/Navbar'
 import Link from 'next/link'
 
 const ExamDetails = () => {
@@ -84,9 +84,9 @@ const ExamDetails = () => {
                 <table className="table-auto w-[80%] mx-10 border-separate border-spacing-y-4">
             <thead>
               <tr className="text-left text-gray-500 text-sm">
-                <th className="px-6 py-3">Student's Name</th>
+                <th className="px-6 py-3">Student&apos;s Name</th>
                 <th className="px-6 py-3">Department</th>
-                <th className="px-6 py-3">Candidate's Level</th>
+                <th className="px-6 py-3">Candidate&apos;s Level</th>
                 <th className="px-6 py-3">College</th>
               </tr>
             </thead>

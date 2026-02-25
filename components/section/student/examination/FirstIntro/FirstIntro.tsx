@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Picture from '@/public/image/Frame 101.png'
 import Link from 'next/link'
-import Navbar from '../../../../ui/Navbar'
+// import Navbar from '../../../../ui/Navbar'
 import { fetchData } from '@/lib/fetchData'
-import { it } from 'node:test'
+// import { it } from 'node:test'
 
 
 type Question = {

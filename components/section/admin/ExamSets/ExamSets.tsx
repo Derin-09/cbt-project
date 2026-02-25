@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../../../ui/Navbar'
+// import Navbar from '../../../ui/Navbar'
 import Link from 'next/link'
 
 const ExamSets = () => {
@@ -16,7 +16,7 @@ const ExamSets = () => {
             <thead>
               <tr className="text-left text-gray-500 text-sm">
                 <th className="px-6 py-3">Examination Date</th>
-                <th className="px-6 py-3">Candidate's Level</th>
+                <th className="px-6 py-3">Candidate&apos;s Level</th>
                 <th className="px-6 py-3">Course Code</th>
                 <th className="px-6 py-3">College</th>
               </tr>

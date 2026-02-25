@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
-import Image from 'next/image'
-import Picture from '@/public/image/Frame 101.png'
+// import Image from 'next/image'
+// import Picture from '@/public/image/Frame 101.png'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { auth, db } from '@/app/firebase'
@@ -31,22 +31,31 @@ type Question = {
 const House = ({ params }: Props) => {
     const [result, setResult] = useState<Question[]>([])
     const [currentIndex, setCurrentIndex] = useState(0)
-
+    const [examId, setExamId] = useState<string | null>(null)
     const range = Array.from({ length: 30 }, (_, i) => i + 1);
     const [name, setName] = useState<string>("")
     const [matric, setMatric] = useState<string>("")
 
     useEffect(() => {
-        //console.log("params.examination 👉", params.examination)
+    // Unpack the promise once
+    params.then(({ examination }) => {
+      setExamId(examination)
+    }).catch(err => {
+      console.error("Failed to read params", err)
+    })
+  }, [params])
+
+    useEffect(() => {
+        //console.log("examId 👉", examId)
         const data = async () => {
             const examFetch = await fetchData()
-            const idx = Number(params.examination)
+            const idx = Number(examId)
             if (!examFetch || !examFetch[idx]) return
             setResult(examFetch[idx].questions)
         }
         data()
-    }, [params.examination])
-    console.log(params.examination)
+    }, [examId])
+    console.log(examId)
 
     const router = useRouter();
     useEffect(() => {
@@ -73,7 +82,7 @@ const House = ({ params }: Props) => {
         })
 
         return () => unsubscribe()
-    }, [])
+    }, [router])
 
     return (
         <main className='h-scree w-screen   text-black select-none'>
@@ -175,11 +184,11 @@ const House = ({ params }: Props) => {
                         <section style={{ boxShadow: '0 0 12px rgba(0, 0, 0, 0.2)' }} className='mb-10 p-8 rounded-md max-w-[600px]' >
                             <div className='flex text-md mb-6 justify-between'>
                                 <p className='text-gray-400'>Course Code:</p>
-                                <p className='font-bold'>{params.examination}</p>
+                                <p className='font-bold'>{examId}</p>
                             </div>
                             <div className='flex text-md mb-6 justify-between'>
                                 <p className='text-gray-400'>Course Code:</p>
-                                <p className='font-bold'>{params.examination}</p>
+                                <p className='font-bold'>{examId}</p>
                             </div>
                             <div className='flex text-md justify-between'>
                                 <p className='text-gray-400'>Duration:</p>

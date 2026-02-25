@@ -1,8 +1,8 @@
 import React from 'react'
-import Image from 'next/image'
-import Picture from '@/public/image/Frame 101.png'
-import Link from 'next/link'
-import Navbar from '../../../ui/Navbar'
+// import Image from 'next/image'
+// import Picture from '@/public/image/Frame 101.png'
+// import Link from 'next/link'
+// import Navbar from '../../../ui/Navbar'
 
 const AdminEditQuestion = () => {
     const range = Array.from({ length: 30 }, (_, i) => i + 1);

@@ -1,19 +1,19 @@
 'use client'
-import { useState } from "react"
+// import { useState } from "react"
 
-type Question = {
-  text: string
-  options: string[]
-  answer: string
-}
+// type Question = {
+//   text: string
+//   options: string[]
+//   answer: string
+// }
 
-type Exam = {
-  title: string
-  course: string
-  faculty: string
-  level: string
-  questions: Question[]
-}
+// type Exam = {
+//   title: string
+//   course: string
+//   faculty: string
+//   level: string
+//   questions: Question[]
+// }
 
 
 

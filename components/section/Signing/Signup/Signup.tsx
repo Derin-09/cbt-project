@@ -13,20 +13,20 @@ import { useSignupStore } from "@/state/store"
 const Signup = () => {
   const {
     matricNo,
-    setMatricNo,
+    // setMatricNo,
     department,
-    setDepartment,
+    // setDepartment,
     name,
     setName,
-    position,
-    setPosition,
+    // position,
+    // setPosition,
     email,
-    setEmail,
+    // setEmail,
     role,
     setRole,
     password,
     setPassword,
-    passwordConfirm,
+    // passwordConfirm,
   } = useSignupStore()
 
   const router = useRouter()
