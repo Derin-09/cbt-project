@@ -1,10 +1,10 @@
 // components/Student.tsx
 "use client"
-import { useSignupStore } from "@/state/store"
+import { useSignupStudentStore } from "@/state/signupStore"
 import React from "react"
 
 export default function Student() {
-  const { matricNo, setMatricNo, department, setDepartment } = useSignupStore()
+  const { matricNo, setMatricNo, department, setDepartment } = useSignupStudentStore()
   return (
     <div className="w-full">
       <div className="w-full text-start">

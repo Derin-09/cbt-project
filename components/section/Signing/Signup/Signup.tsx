@@ -8,13 +8,13 @@ import { db } from "@/app/firebase"
 import { doc, setDoc } from "firebase/firestore"
 import Student from "./Student"
 import Admin from "./Admin"
-import { useSignupStore } from "@/state/store"
+import { useSignupAdminStore } from "@/state/signupStore"
 
 const Signup = () => {
   const {
-    matricNo,
-    // setMatricNo,
-    department,
+    // matricNo,
+    // // setMatricNo,
+    // department,
     // setDepartment,
     name,
     setName,
@@ -27,26 +27,28 @@ const Signup = () => {
     password,
     setPassword,
     // passwordConfirm,
-  } = useSignupStore()
+  } = useSignupAdminStore()
 
   const router = useRouter()
 
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const sanitizedMatric = matricNo.replace(/\//g, "-") || ""
-    const fakeEmail = `${sanitizedMatric}@school.edu`
-    const formattedEmail = role === "student" ? fakeEmail : email
+    // const sanitizedMatric = matricNo.replace(/\//g, "-") || ""
+    // const fakeEmail = `${sanitizedMatric}@school.edu`
+    // const formattedEmail = role === "student" ? fakeEmail : email
+     const formattedEmail = email
+
 
     try {
       const userDetails = await createUserWithEmailAndPassword(auth, formattedEmail, password)
       const user = userDetails.user
 
-      await setDoc(doc(db, "users", user.uid), {
-        name,
-        department: department || "",
-        createdAt: new Date(),
-        ...(role === "student" ? { matric: matricNo || "" } : { email: email || "" }),
-      })
+      // await setDoc(doc(db, "users", user.uid), {
+      //   name,
+      //   department: department || "",
+      //   createdAt: new Date(),
+      //   ...(role === "student" ? { matric: matricNo || "" } : { email: email || "" }),
+      // })
 
       console.log("User data saved in Firestore")
       localStorage.setItem("name", name)

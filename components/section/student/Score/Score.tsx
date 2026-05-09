@@ -1,5 +1,5 @@
 'use client'
-import { useExam } from '@/state/store'
+import { useExam } from '@/state/examStore'
 import Link from 'next/link'
 import React from 'react'
 

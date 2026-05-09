@@ -6,7 +6,15 @@ import { useRouter } from 'next/navigation'
 import {toast } from 'sonner'
 import Link from 'next/link'
 
-const Login = () => {
+const initialState = {
+    role: '',
+    name: '',
+    email: '',
+    password: '',
+    position: '',
+}
+
+const LoginAdmin = () => {
   const [role, setRole] = useState<'student' | 'admin'>('student')
   const [matricNo, setMatricNo] = useState('')
   const [email, setEmail] = useState('')
@@ -116,7 +124,7 @@ const Login = () => {
   )
 }
 
-export default Login
+export default LoginAdmin
 
 
 

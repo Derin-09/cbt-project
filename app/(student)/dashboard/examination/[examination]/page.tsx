@@ -7,7 +7,7 @@ import { auth, db } from '@/app/firebase'
 import { onAuthStateChanged } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { fetchData } from '@/lib/fetchData'
-import { useExam } from '@/state/store'
+import { useExam } from '@/state/examStore'
 
 type Question = {
   text: string

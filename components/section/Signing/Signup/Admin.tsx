@@ -1,10 +1,10 @@
 // components/Admin.tsx
 "use client"
-import { useSignupStore } from "@/state/store"
+import { useSignupAdminStore } from "@/state/signupStore"
 import React from "react"
 
 export default function Admin() {
-  const { email, setEmail, position, setPosition } = useSignupStore()
+  const { email, setEmail, position, setPosition } = useSignupAdminStore()
   return (
     <div className="w-full">
       <div className="w-full text-start">
