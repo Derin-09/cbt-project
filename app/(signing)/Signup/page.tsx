@@ -1,9 +1,10 @@
-import Signup from '@/components/section/Signing/Signup/Signup'
+
+import Student from '@/components/section/Signing/Signup/Student'
 import React from 'react'
 
 const page = () => {
   return (
-    <div><Signup /></div>
+    <div><Student /></div>
   )
 }
 

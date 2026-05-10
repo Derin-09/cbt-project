@@ -1,8 +1,9 @@
-import SignupAdmin from '@/components/section/admin/SignupAdmin/SignupAdmin'
+import SignupAdmin from "@/components/section/Signing/Signup/Admin"
+
 
 const page = () => {
   return (
-    <div><SignupAdmin /></div>
+    <div><SignupAdmin/></div>
   )
 }
 

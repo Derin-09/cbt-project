@@ -1,10 +1,10 @@
-import Login from '@/components/section/Signing/Login/Login'
+import LoginStudent from '@/components/section/Signing/Login/LoginStudent'
 import React from 'react'
 
 const LoginPage = () => {
   return (
     <div>
-      <Login />
+      <LoginStudent />
     </div>
   )
 }
