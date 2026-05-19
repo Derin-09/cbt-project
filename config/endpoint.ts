@@ -11,9 +11,14 @@ export const endpoints = (params?: number | string) => {
         login_student: `${baseUrl}/api/Auth/login/student`,
         get_single_student:  `${baseUrl}/api/Auth/student/${params}`,
     }
+    const Exams = {
+        get_exams: `${baseUrl}/api/Exams`,
+        get_exam_details: `${baseUrl}/api/Exams/${params}`,
+    }
 
 
     return {
-        Auth
+        Auth,
+        Exams
     }
 }

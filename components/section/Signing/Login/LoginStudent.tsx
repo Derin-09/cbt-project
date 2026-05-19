@@ -30,7 +30,7 @@ const LoginStudent = () => {
     mutationKey: ['login-student'],
     onSuccess: () => {
       toast.success('Login successful');
-      router.push(`/dashboard`);
+      router.push(`/dashboard/selectexam`);
     },
     onError: (err) => {
       toast.error(err.message);

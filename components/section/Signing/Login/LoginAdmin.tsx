@@ -27,7 +27,7 @@ const LoginAdmin = () => {
     mutationKey: ['login-admin'],
     onSuccess: () => {
       toast.success('Admin logged in successfully');
-      router.push(`/adminDashboard`);
+      router.push(`/adminDashboard/welcome`);
     },
     onError: (err) => {
       toast.error(err.message);

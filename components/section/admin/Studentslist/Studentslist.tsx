@@ -1,4 +1,7 @@
+'use client'
+
 import React from 'react'
+import { AddStudentDialog } from '../AddStudentDialog/AddStudentDialog'
 // import Navbar from '../../../ui/Navbar'
 
 const Studentslist = () => {
@@ -7,7 +10,7 @@ const Studentslist = () => {
       <section className="">
         <div className="flex justify-between mt-10 mx-10">
           <p className="font-bold text-xl">Manage all exam candidates</p>
-          <div className="bg-[#2F4156] text-white px-4 py-2 rounded">Add new student</div>
+          <AddStudentDialog />
         </div>
 
         <section className="mt-6 px-10">

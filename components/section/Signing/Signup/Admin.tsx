@@ -3,6 +3,7 @@ import React from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useMutation } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
 import { api } from '@/utils/axios'
 import { endpoints } from '@/config/endpoint'
 import { toast } from 'sonner'
@@ -22,27 +23,48 @@ type PayloadType = {
     position: string
 }
 
+type ValidationErrorResponse = {
+    message?: string
+    errors?: Record<string, string[]>
+}
+
+const getErrorMessage = (error: unknown) => {
+    if (error instanceof AxiosError) {
+        const data = error.response?.data as ValidationErrorResponse | undefined
+        const validationMessages = data?.errors
+            ? Object.values(data.errors).flat().join(' ')
+            : undefined
+
+        return validationMessages || data?.message || error.message
+    }
+
+    if (error instanceof Error) {
+        return error.message
+    }
+
+    return 'Something went wrong. Please try again.'
+}
+
 const SignupAdmin = () => {
     const router = useRouter();
 
    
-    const { mutateAsync: createAdminAsync, isPending } = useMutation<unknown, Error, PayloadType>({
+    const { mutateAsync: createAdminAsync, isPending } = useMutation<unknown, unknown, PayloadType>({
         mutationFn: (payload) => api.post<unknown, PayloadType>(endpoints().Auth.add_admin, payload, { withCredentials: false }),
         mutationKey: ["register-admin"],
-        onSuccess: () => {
-            toast.success('Admin registered successfully');
-            router.push(`/admin`);
-        },
-        onError: (err) => {
-            toast.error(err.message);
-        },
     })
 
     const { values, handleSubmit, setFieldValue} = useFormik<PayloadType>({
         initialValues,
         enableReinitialize: true,
         onSubmit: async (formValues) => {
-            await createAdminAsync(formValues);
+            try {
+                await createAdminAsync(formValues);
+                toast.success('Admin registered successfully');
+                router.push('/admin');
+            } catch (error) {
+                toast.error(getErrorMessage(error));
+            }
         }
     })
     return (

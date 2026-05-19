@@ -5,6 +5,9 @@ import Picture from '@/public/image/Frame 101.png'
 import Link from 'next/link'
 // import Navbar from '../../../../ui/Navbar'
 import { fetchData } from '@/lib/fetchData'
+import { useQuery } from '@tanstack/react-query'
+import { api } from '@/utils/axios'
+import { endpoints } from '@/config/endpoint'
 // import { it } from 'node:test'
 
 
@@ -29,13 +32,20 @@ const FirstIntro = () => {
   const toTitleCase = (str: string) =>
   str.replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
 
-  useEffect(() => {
-    const data = async () => {
-      const examFetch = await fetchData()
-      setResult(examFetch)
-    }
-    data()
-  }, [])
+  const {data, isLoading} = useQuery({
+    queryKey: ['get-exams'],
+    queryFn: () => { api.get(endpoints().Exams.get_exams)},
+  })
+
+  const dataResults: Exam[] = data || []
+
+  // useEffect(() => {
+  //   const data = async () => {
+  //     const examFetch = await fetchData()
+  //     setResult(examFetch)
+  //   }
+  //   data()
+  // }, [])
  
   return (
     <main className='h-full w-sreen  text-black select-none'>
@@ -45,7 +55,7 @@ const FirstIntro = () => {
             <p className='pt-15 text-xl font-bold mb-10'>Please select your examination and start immediately!</p>
             <div className='grid grid-cols-3 gap-4 mb-2'>
 
-              { result?.map((item, idx) => (
+              { dataResults?.map((item, idx) => (
               <Link key={idx} href={`/dashboard/examination/${idx}`}>
               <div className='p-5 h-40 rounded-lg border-1 border-gray-500'>
                 <div className='flex gap-2 pb-5 items-center'>

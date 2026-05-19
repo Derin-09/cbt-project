@@ -1,11 +1,16 @@
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
 
+type ApiErrorResponse = {
+	message?: string;
+	errors?: Record<string, string[]>;
+};
+
 const baseURL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
 export const instance = axios.create({
 	baseURL,
 	timeout: 15000,
-	withCredentials: true,
+	withCredentials: false,
 	headers: {
 		"Content-Type": "application/json",
 	},
@@ -17,13 +22,19 @@ instance.interceptors.request.use((config) => {
 
 instance.interceptors.response.use(
 	(response) => response,
-	(error: AxiosError<{ message?: string }>) => {
+	(error: AxiosError<ApiErrorResponse>) => {
+		const validationMessage = error.response?.data?.errors
+			? Object.values(error.response.data.errors).flat().join(" ")
+			: undefined;
 		const message =
+			validationMessage ||
 			error.response?.data?.message ||
 			error.message ||
 			"Something went wrong. Please try again.";
 
-		return Promise.reject(new Error(message));
+		error.message = message;
+
+		return Promise.reject(error);
 	}
 );
 
